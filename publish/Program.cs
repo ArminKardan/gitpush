@@ -145,6 +145,9 @@ namespace publish
 
                 Git($"remote set-url origin git@github.com:{gitUsername}/" + repositoryName + ".git", (string result) => { Console.WriteLine(result); });
                 Git($"remote add origin git@github.com:{gitUsername}/" + repositoryName + ".git", (string result) => { Console.WriteLine(result); });
+                //Git($"remote add origin https://github.com/{gitUsername}/{repositoryName}.git",
+                     //(string result) => { Console.WriteLine(result); });
+                
                 Git($"remote set-url origin git@github.com:{gitUsername}/" + repositoryName + ".git", (string result) => { Console.WriteLine(result); });
                 Console.WriteLine("3");
 
@@ -201,7 +204,7 @@ namespace publish
 
             if (File.Exists(".gitcreated") || exists)
             {
-                
+
                 Git("add .", (string result) => { Console.WriteLine(result); });
                 Console.WriteLine("1");
                 Git("commit -m Update", (string result) => { Console.WriteLine(result); });
@@ -212,7 +215,10 @@ namespace publish
                 //}
                 Git("commit -m \"Update of "+DateTime.Now.ToShortDateString()+"\"", (string result) => { Console.WriteLine(result); });
                 Console.WriteLine("4: Now i want to upload changes:");
-                GitShell("push --set-upstream -u origin master --force");
+                Git("branch -M main", (string s) => { });
+                GitShell("push --set-upstream -u origin main --force");
+
+                //git push -u origin main
                 //Git("push -u origin master", (string result) => { Console.WriteLine(result); });
             }
         }
